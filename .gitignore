@@ -1,3 +1,14 @@
+# Temp video folder
+vid_in
+vid_out
+
+# Test output video
+test_output.mp4
+
+# Config
+cli/config.js
+*-config.json
+
 # Logs
 logs
 *.log

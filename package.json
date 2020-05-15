@@ -1,0 +1,25 @@
+{
+  "name": "mp4server",
+  "version": "1.0.0",
+  "description": "Backend to concatenate mp4 videos (since browser is too slow)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yuu6883/MP4Server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yuu6883/MP4Server/issues"
+  },
+  "homepage": "https://github.com/Yuu6883/MP4Server#readme",
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.0.20",
+    "node-fetch": "^2.6.0",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v17.4.0",
+    "uid-safe": "^2.1.5"
+  }
+}
