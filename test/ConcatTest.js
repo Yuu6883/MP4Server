@@ -62,7 +62,7 @@ app.init().then(async () => {
             start = Date.now();
 
             /** @type {Response} */
-            const downloadRes = await fetch(`${JOB_URL}/download/${jobId}`);
+            const downloadRes = await fetch(`${JOB_URL}/${jobId}/download`);
             console.assert(statusRes.status == 200, `Failed to get job download (Status: ${downloadRes.status})`);
 
             const stream = fs.createWriteStream(OUT_PATH);

@@ -3,7 +3,7 @@ const fs = require("fs");
 /** @param {Buffer} buffer */
 const toArrayBuffer = buffer => buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
 
-module.exports = class VideoStream {
+module.exports = class FileStreamer {
     
     /** @param {import("./MP4Server")} server */
     constructor(server) {
@@ -30,6 +30,7 @@ module.exports = class VideoStream {
 
         const size = fs.statSync(path).size;
         const readStream = fs.createReadStream(path);
+        this.server.logger.debug(`Starting to stream video at ${path}`);
 
         /** @param {Error} */
         const handleErrorOrAbortOrFinish = (deleteFile, error) => {

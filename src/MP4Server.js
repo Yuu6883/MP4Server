@@ -4,7 +4,7 @@ const fs = require("fs");
 
 const Logger = require("./Logger");
 const JobHandler = require("./JobHandler");
-const VideoStreamer = require("./VideoStreamer");
+const FileStreamer = require("./FileStreamer");
 
 const VID_IN_DIR  = path.resolve(__dirname, "..", "vid_in");
 const VID_OUT_DIR = path.resolve(__dirname, "..", "vid_out");
@@ -37,7 +37,7 @@ class MP4Server {
         
         this.logger = new Logger();
         this.handler = new JobHandler(this);
-        this.streamer = new VideoStreamer(this);
+        this.streamer = new FileStreamer(this);
         this.listener = null;
     }
 
@@ -67,6 +67,8 @@ class MP4Server {
                     const parts = ~~result[1];
                     const [error, job] = this.handler.requestJob(ip, parts);
 
+                    res.writeHeader("Access-Control-Allow-Origin", "*");
+
                     if (error) res.end(`{"success": false, "error": "${error}"}`);
                     else res.end(`{"success": true, "id": "${job.id}"}`);
                 })
@@ -78,6 +80,8 @@ class MP4Server {
                     if (!job) return res.writeStatus(HTTP_404).end();
                     if (job.validFrom != ip) return res.writeStatus(HTTP_403).end();
 
+                    res.writeHeader("Access-Control-Allow-Origin", "*");
+
                     res.end(`{"status": "${job.status}"}`);
                 })
                 .post("/job/:id/:part", (res, req) => {
@@ -87,6 +91,8 @@ class MP4Server {
                     const partString = req.getParameter(1);
                     const job = this.handler.getJob(id);
                     this.logger.onAccess(`Received POST from ${ip} for Job#${job ? job.id : "NULL"}`);
+
+                    res.writeHeader("Access-Control-Allow-Origin", "*");
 
                     // A LOT OF dumb checks
                     if (!job) return res.writeStatus(HTTP_404).end();
@@ -130,7 +136,9 @@ class MP4Server {
                         fs.unlink(vidPath, () => job.receiving.delete(id));
                     });
                 })
-                .get("/job/download/:id", (res, req) => {
+                .get("/job/:id/download", (res, req) => {
+
+                    res.writeHeader("Access-Control-Allow-Origin", "*");
 
                     const ip = toIPv4(res.getRemoteAddress());
                     const id = req.getParameter(0);
