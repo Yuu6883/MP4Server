@@ -1,3 +1,7 @@
+# Project Discontinued
+Use this client-side ffmpeg wasm build instead https://github.com/ffmpegwasm/ffmpeg.wasm
+This project is actually a good example of how to use uWebSockets.js.
+
 # MP4Server
 Backend server to concatenate mp4 video segments uploaded from client
 
